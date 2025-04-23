@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Portfolio" ADD COLUMN     "availableBalance" DOUBLE PRECISION NOT NULL DEFAULT 100000;

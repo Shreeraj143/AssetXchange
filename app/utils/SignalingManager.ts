@@ -54,25 +54,25 @@ export class SignalingManager {
               quoteVolume: message.data.V,
               symbol: message.data.s,
             };
-            console.log(`Ticker update for ${newTicker.symbol}:`, newTicker);
+            // console.log(`Ticker update for ${newTicker.symbol}:`, newTicker);
             callback(newTicker);
           }
           if (type === "depth") {
             const updatedBids = message.data.b;
             const updatedAsks = message.data.a;
-            console.log("Order book depth update:", {
-              bids: updatedBids,
-              asks: updatedAsks,
-            });
-            console.log(
-              `Ticker update for ${updatedBids.symbol}:`,
-              updatedBids
-            );
+            // console.log("Order book depth update:", {
+            //   bids: updatedBids,
+            //   asks: updatedAsks,
+            // });
+            // console.log(
+            //   `Ticker update for ${updatedBids.symbol}:`,
+            //   updatedBids
+            // );
             callback({ bids: updatedBids, asks: updatedAsks });
           }
           if (type === "kline") {
             const klineData = message.data.k;
-            console.log("Kline update received:", klineData);
+            // console.log("Kline update received:", klineData);
             callback({
               close: parseFloat(klineData.c),
               high: parseFloat(klineData.h),

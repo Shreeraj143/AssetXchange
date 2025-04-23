@@ -115,7 +115,7 @@ export function Depth({ market }: { market: string }) {
     const signaling = SignalingManager.getInstance();
 
     const updateDepth = (data: any) => {
-      console.log("Depth update received:", data);
+      // console.log("Depth update received:", data);
 
       setBids((prevBids) => {
         const bidMap = new Map(prevBids);

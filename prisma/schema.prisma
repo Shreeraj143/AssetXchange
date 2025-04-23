@@ -29,10 +29,15 @@ model Portfolio {
   userId    String
   user      User     @relation(fields: [userId], references: [id])
 
-  symbol    String   // e.g. BTC, SOL, USDT
-  quantity  Float    @default(0)
+  symbol       String   // e.g. BTC, SOL, USDT
+  quantity     Float    @default(0)
+  averagePrice Float
+
+  availableBalance Float   @default(100000)
 
   updatedAt DateTime @updatedAt
+
+  @@unique([userId, symbol]) 
 }
 
 

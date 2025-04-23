@@ -17,6 +17,13 @@ const config: Config = {
     },
     extend: {
       colors: {
+        greenBackgroundTransparent: "rgba(0,194,120,.12)",
+        redBackgroundTransparent: "rgba(234,56,59,.12)",
+        baseBackgroundL2: "rgb(32,33,39)",
+        baseBackgroundL3: "rgb(32,33,39)",
+        greenPrimaryButtonBackground: "rgb(0,194,120)",
+        redPrimaryButtonBackground: "rgb(224, 49, 12)",
+        baseBackgroundL1: "rgb(20,21,27)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -50,6 +57,22 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+      },
+      borderColor: {
+        redBorder: "rgba(234,56,59,.5)",
+        greenBorder: "rgba(0,194,120,.4)",
+        baseBorderMed: "#cccccc",
+        accentBlue: "rgb(76,148,255)",
+        baseBorderLight: "rgb(32,33,39)",
+        baseTextHighEmphasis: "rgb(244,244,246)",
+      },
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      textColor: {
+        greenPrimaryButtonText: "rgb(20,21,27)",
       },
       borderRadius: {
         lg: "var(--radius)",
