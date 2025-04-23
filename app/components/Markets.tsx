@@ -15,7 +15,7 @@ export const Markets = () => {
   return (
     <div className="flex flex-col flex-1 max-w-[1280px] w-full">
       <div className="flex flex-col min-w-[700px] flex-1 w-full">
-        <div className="flex flex-col w-full rounded-lg bg-baseBackgroundL1 px-5 py-3">
+        <div className="flex flex-col w-full rounded-lg px-5 py-3">
           <table className="w-full table-auto">
             <MarketHeader />
             {tickers?.map((m) => (
@@ -110,7 +110,7 @@ function MarketRow({ market }: { market: Ticker }) {
 
 function MarketHeader() {
   return (
-    <thead>
+    <thead className="bg-primary text-primary-foreground">
       <tr className="">
         <th className="px-2 py-3 text-left text-sm font-normal text-baseTextMedEmphasis">
           <div className="flex items-center gap-1 cursor-pointer select-none">

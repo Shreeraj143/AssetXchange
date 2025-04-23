@@ -54,13 +54,23 @@
 //   );
 // };
 
+"use client";
+
 import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  useAuth,
+  UserButton,
+} from "@clerk/nextjs";
 import { ArrowRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 
 export const Appbar = () => {
+  const { userId } = useAuth();
+
   return (
     <nav className="sticky h-14 inset-x-0 top-0 z-30 w-full border-b border-gray-300 bg-white/75 backdrop-blur-lg transition-all">
       <MaxWidthWrapper>
@@ -118,6 +128,18 @@ export const Appbar = () => {
                   <ArrowRight />
                 </Link>
               </SignedOut>
+
+              <SignedIn>
+                <Link
+                  href={"/orders"}
+                  className={buttonVariants({
+                    size: "sm",
+                    variant: "ghost",
+                  })}
+                >
+                  Orders
+                </Link>
+              </SignedIn>
 
               <SignedIn>
                 <UserButton />
