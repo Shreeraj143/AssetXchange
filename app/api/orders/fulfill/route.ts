@@ -1,5 +1,19 @@
 import { db } from "@/app/db";
+import { checkPendingOrders } from "@/app/scripts/checkPendingOrders";
 import { NextRequest, NextResponse } from "next/server";
+
+export async function GET() {
+  try {
+    await checkPendingOrders();
+    return NextResponse.json({ message: "Auto-fulfilled pending orders ✅" });
+  } catch (error) {
+    console.error("❌ Error in GET /fulfill:", error);
+    return NextResponse.json(
+      { error: "Matching engine error" },
+      { status: 500 }
+    );
+  }
+}
 
 export async function POST(req: NextRequest) {
   try {

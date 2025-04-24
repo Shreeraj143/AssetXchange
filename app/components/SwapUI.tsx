@@ -26,11 +26,13 @@ export function SwapUI({ market }: { market: string }) {
     const data = await res.json();
 
     if (res.ok) {
-      await fetch("/api/orders/fulfill", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderId: data.id }),
-      });
+      // This is used to fulfill the order automatically
+
+      // await fetch("/api/orders/fulfill", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ orderId: data.id }),
+      // });
 
       toast.success("Order placed successfully");
     } else {

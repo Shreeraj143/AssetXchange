@@ -29,7 +29,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "types"
+    "types",
+    "app/scripts/checkPendingOrders.js"
   ],
   "exclude": ["node_modules"]
 }
