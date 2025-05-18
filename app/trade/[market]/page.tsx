@@ -18,8 +18,11 @@ export default function Page() {
         <div className="flex flex-row h-[920px] border-y border-slate-800">
           <div className="flex flex-col flex-1">
             <TradeView market={market as string} />
-            <PricePrediction symbol={market as string} />
+            <div className="w-full">
+              <PricePrediction symbol={market as string} />
+            </div>
           </div>
+
           <div className="flex flex-col w-[250px] overflow-hidden">
             <Depth market={market as string} />
           </div>

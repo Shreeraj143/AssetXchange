@@ -14,15 +14,13 @@ const CryptoNews = () => {
   const [news, setNews] = useState<NewsArticle[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 10;
-  const API_KEY = "08a2250b9b6f438583d39de51f2fb754"; // Replace with your API Key
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
         const response = await axios.get<{ articles: NewsArticle[] }>(
-          `https://newsapi.org/v2/everything?q=cryptocurrency&apiKey=${API_KEY}`
+          `/api/news?q=cryptocurrency`
         );
-        // Filter out articles that don't have an image
         const filteredNews = response.data.articles.filter(
           (article) => article.urlToImage
         );
@@ -35,22 +33,9 @@ const CryptoNews = () => {
     fetchNews();
   }, []);
 
-  // Pagination Logic
   const indexOfLastArticle = currentPage * articlesPerPage;
   const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
   const currentArticles = news.slice(indexOfFirstArticle, indexOfLastArticle);
-
-  const nextPage = () => {
-    if (indexOfLastArticle < news.length) {
-      setCurrentPage((prev) => prev + 1);
-    }
-  };
-
-  const prevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
-    }
-  };
 
   return (
     <div className="p-6 bg-gray-900 text-white rounded-lg shadow-lg max-w-4xl mx-auto">
@@ -83,14 +68,14 @@ const CryptoNews = () => {
       {/* Pagination Controls */}
       <div className="flex justify-between mt-6">
         <button
-          onClick={prevPage}
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
           className="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:opacity-50"
         >
           ◀ Previous
         </button>
         <button
-          onClick={nextPage}
+          onClick={() => setCurrentPage((prev) => prev + 1)}
           disabled={indexOfLastArticle >= news.length}
           className="px-4 py-2 bg-blue-500 text-white rounded-lg disabled:opacity-50"
         >

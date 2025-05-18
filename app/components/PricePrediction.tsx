@@ -5,34 +5,26 @@ import { fetchHistoricalPrices } from "@/lib/priceFetcher";
 import PredictionBanner from "./PredictionBanner";
 import * as tf from "@tensorflow/tfjs";
 
-type PricePoint = {
-  close: number;
-};
-
-type PricePredictionProps = {
+type Props = {
   symbol: string;
 };
 
-export default function PricePrediction({ symbol }: PricePredictionProps) {
+export default function PricePrediction({ symbol }: Props) {
   const [result, setResult] = useState<{
     prediction: number;
     currentPrice: number;
     signal: "BUY" | "SELL";
+    sentiment: "positive" | "neutral" | "negative";
   } | null>(null);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function predict() {
+    async function run() {
       try {
-        console.log("Fetching price data...");
-        const prices: PricePoint[] = await fetchHistoricalPrices(symbol);
-        console.log("Fetched prices:", prices);
-
-        const closePrices = prices.map((p) => p.close);
-
-        if (closePrices.length < 10) {
-          throw new Error("Not enough data for prediction");
-        }
+        const prices = await fetchHistoricalPrices(symbol);
+        const closePrices = prices.map((p: any) => p.close);
+        if (closePrices.length < 10) throw new Error("Not enough price data");
 
         const normalized = tf
           .tensor1d(closePrices)
@@ -45,7 +37,6 @@ export default function PricePrediction({ symbol }: PricePredictionProps) {
           tf.layers.dense({ units: 10, inputShape: [1], activation: "relu" })
         );
         model.add(tf.layers.dense({ units: 1 }));
-
         model.compile({ loss: "meanSquaredError", optimizer: "adam" });
 
         await model.fit(xs.reshape([-1, 1]), ys.reshape([-1, 1]), {
@@ -53,18 +44,21 @@ export default function PricePrediction({ symbol }: PricePredictionProps) {
           verbose: 0,
         });
 
-        const last = normalized.slice(normalized.shape[0] - 1).reshape([1, 1]);
-        const predictionTensor = model.predict(last) as tf.Tensor;
+        const last = normalized
+          .slice([normalized.shape[0] - 1], [1])
+          .reshape([1, 1]);
 
+        const predTensor = model.predict(last) as tf.Tensor;
         const prediction =
-          (await predictionTensor.data())[0] * Math.max(...closePrices);
+          (await predTensor.data())[0] * Math.max(...closePrices);
         const currentPrice = closePrices[closePrices.length - 1];
+        const signal = prediction > currentPrice ? "BUY" : "SELL";
 
-        setResult({
-          prediction,
-          currentPrice,
-          signal: prediction > currentPrice ? "BUY" : "SELL",
-        });
+        const sentimentRes = await fetch(`/api/sentiment?symbol=${symbol}`);
+        const data = await sentimentRes.json();
+        const sentiment = data?.sentiment ?? "neutral";
+
+        setResult({ prediction, currentPrice, signal, sentiment });
       } catch (err) {
         console.error("Prediction error:", err);
       } finally {
@@ -72,20 +66,21 @@ export default function PricePrediction({ symbol }: PricePredictionProps) {
       }
     }
 
-    predict();
-  }, []);
+    run();
+  }, [symbol]);
 
   if (loading)
-    return <div className="p-4 text-gray-600">Predicting price...</div>;
+    return <div className="p-4 text-gray-600">Analyzing market...</div>;
   if (!result)
     return <div className="p-4 text-red-500">Error fetching prediction</div>;
 
   return (
-    <div className="max-w-xl mx-auto mt-8">
+    <div className="w-full">
       <PredictionBanner
         currentPrice={result.currentPrice}
         prediction={result.prediction}
         signal={result.signal}
+        sentiment={result.sentiment}
       />
     </div>
   );
