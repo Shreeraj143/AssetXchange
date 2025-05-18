@@ -16,6 +16,7 @@ export const Markets = () => {
     <div className="flex flex-col flex-1 max-w-[1280px] w-full">
       <div className="flex flex-col min-w-[700px] flex-1 w-full">
         <div className="flex flex-col w-full rounded-lg px-5 py-3">
+          <h1 className="text-2xl font-bold mb-4">📊 All Markets</h1>
           <table className="w-full table-auto">
             <MarketHeader />
             {tickers?.map((m) => (
@@ -28,30 +29,22 @@ export const Markets = () => {
   );
 };
 
-async function fetchCoinImage(symbol: string) {
-  const res = await fetch(`/api/coin-image?symbol=${symbol}`);
-  const data = await res.json();
+// async function fetchCoinImage(symbol: string) {
+//   const res = await fetch(`/api/coin-image?symbol=${symbol}`);
+//   const data = await res.json();
 
-  if (data.image) {
-    console.log("Coin Image URL:", data.image);
-    return data.image;
-  } else {
-    console.error("Error:", data.error);
-    return "";
-  }
-}
+//   if (data.image) {
+//     console.log("Coin Image URL:", data.image);
+//     return data.image;
+//   } else {
+//     console.error("Error:", data.error);
+//     return "";
+//   }
+// }
 
 function MarketRow({ market }: { market: Ticker }) {
   const router = useRouter();
-  const [imageUrl, setImageUrl] = useState<string>("");
 
-  useEffect(() => {
-    async function loadImage() {
-      const img = await fetchCoinImage(market.symbol);
-      setImageUrl(img);
-    }
-    loadImage();
-  }, [market.symbol]);
   return (
     <tr
       className="cursor-pointer border-t border-baseBorderLight hover:bg-white/7 w-full"
@@ -67,7 +60,9 @@ function MarketRow({ market }: { market: Ticker }) {
               <div className="relative">
                 <img
                   alt={market.symbol}
-                  src={imageUrl}
+                  src={
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVvBqZC_Q1TSYObZaMvK0DRFeHZDUtVMh08Q&s"
+                  }
                   loading="lazy"
                   width="40"
                   height="40"

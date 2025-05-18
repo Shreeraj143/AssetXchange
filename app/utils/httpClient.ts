@@ -3,6 +3,7 @@ import { Depth, KLine, Ticker, Trade } from "./types";
 
 // const BASE_URL = "https://exchange-proxy.100xdevs.com/api/v1";
 const BASE_URL = "/api/backpack";
+const BASE_URL_FOR_SERVER = "http://localhost:3000/api/backpack";
 // const BASE_URL = "https://api.backpack.exchange/api/v1";
 // const BASE_URL = "http://localhost:3000/api/v1";
 
@@ -17,6 +18,11 @@ export async function getTicker(market: string): Promise<Ticker> {
 
 export async function getTickers(): Promise<Ticker[]> {
   const response = await axios.get(`${BASE_URL}/tickers`);
+  return response.data;
+}
+
+export async function getTickersServer(): Promise<Ticker[]> {
+  const response = await axios.get(`${BASE_URL_FOR_SERVER}/tickers`);
   return response.data;
 }
 

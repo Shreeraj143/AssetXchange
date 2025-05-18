@@ -142,6 +142,18 @@ export const Appbar = () => {
               </SignedIn>
 
               <SignedIn>
+                <Link
+                  href={"/portfolio"}
+                  className={buttonVariants({
+                    size: "sm",
+                    variant: "ghost",
+                  })}
+                >
+                  Portfolio
+                </Link>
+              </SignedIn>
+
+              <SignedIn>
                 <UserButton />
               </SignedIn>
             </>

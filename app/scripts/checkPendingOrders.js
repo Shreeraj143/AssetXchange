@@ -48,19 +48,28 @@ export async function checkPendingOrders() {
       });
 
       if (existing) {
+        console.log(
+          `ℹ️ Found existing portfolio for ${symbol} for user ${userId}`
+        );
         const newQty = existing.quantity + quantity;
         const newAvgPrice =
           (existing.quantity * existing.averagePrice + quantity * price) /
           newQty;
 
-        await db.portfolio.update({
+        const result = await db.portfolio.update({
           where: { userId_symbol: { userId, symbol } },
           data: {
             quantity: newQty,
             averagePrice: newAvgPrice,
           },
         });
+
+        console.log("🔎 Portfolio update result:", result);
+        console.log(`✅ Updated portfolio for ${symbol}`);
       } else {
+        console.log(
+          `➕ Creating new portfolio entry for ${symbol} for user ${userId}`
+        );
         await db.portfolio.create({
           data: { userId, symbol, quantity, averagePrice: price },
         });
@@ -80,6 +89,6 @@ setInterval(() => {
   checkPendingOrders().catch((err) =>
     console.error("Error executing job:", err)
   );
-}, 60 * 1000); // 5 minutes in milliseconds
+}, 15 * 1000); // 5 minutes in milliseconds
 
 console.log("Scheduler is running...");
