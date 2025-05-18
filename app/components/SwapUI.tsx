@@ -2,6 +2,7 @@
 import { useAuth } from "@clerk/nextjs";
 import { useState } from "react";
 import { toast } from "sonner";
+import ChatSupport from "./ChatSupport";
 
 export function SwapUI({ market }: { market: string }) {
   const [quantity, setQuantity] = useState("");
@@ -41,7 +42,7 @@ export function SwapUI({ market }: { market: string }) {
   };
 
   return (
-    <div>
+    <div className="bg-white">
       <div className="flex flex-col">
         <div className="flex flex-row h-[60px]">
           <BuyButton activeTab={activeTab} setActiveTab={setActiveTab} />
@@ -81,7 +82,10 @@ export function SwapUI({ market }: { market: string }) {
                   />
                   <div className="flex flex-row absolute right-1 top-1 p-2">
                     <div className="relative">
-                      <img src="/usdc.webp" className="w-6 h-6" />
+                      <img
+                        src="https://www.svgrepo.com/show/7223/coin.svg"
+                        className="w-6 h-6"
+                      />
                     </div>
                   </div>
                 </div>
@@ -102,7 +106,10 @@ export function SwapUI({ market }: { market: string }) {
                 />
                 <div className="flex flex-row absolute right-1 top-1 p-2">
                   <div className="relative">
-                    <img src="/sol.webp" className="w-6 h-6" />
+                    <img
+                      src="https://www.svgrepo.com/show/309807/number-symbol.svg"
+                      className="w-6 h-6"
+                    />
                   </div>
                 </div>
               </div>
@@ -125,6 +132,9 @@ export function SwapUI({ market }: { market: string }) {
             </button>
           </div>
         </div>
+      </div>
+      <div className="flex flex-col mt-4">
+        <ChatSupport />
       </div>
     </div>
   );

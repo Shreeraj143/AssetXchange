@@ -169,7 +169,7 @@ export function Depth({ market }: { market: string }) {
   }, [market]);
 
   return (
-    <div>
+    <div className="bg-white">
       <TableHeader />
       {asks && <AskTable asks={asks} />}
       {price && <div className="text-center text-lg font-bold">{price}</div>}
