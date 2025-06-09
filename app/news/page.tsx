@@ -18,7 +18,7 @@ export default async function Home() {
   if (!dbUser) redirect("/auth-callback?origin=news");
   return (
     <MaxWidthWrapper className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Crypto Exchange</h1>
+      <h1 className="text-3xl font-bold my-7 text-center">📢 Crypto News</h1>
       <CryptoNews />
     </MaxWidthWrapper>
   );

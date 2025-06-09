@@ -20,7 +20,7 @@ export const Markets = () => {
           <table className="w-full table-auto">
             <MarketHeader />
             {tickers?.map((m) => (
-              <MarketRow market={m} />
+              <MarketRow market={m} key={m.symbol} />
             ))}
           </table>
         </div>

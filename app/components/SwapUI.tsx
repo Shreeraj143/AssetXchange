@@ -12,6 +12,15 @@ export function SwapUI({ market }: { market: string }) {
   const { userId } = useAuth();
 
   const placeOrder = async () => {
+    if (!price || !quantity || isNaN(+price) || isNaN(+quantity)) {
+      toast.error("Enter valid price and quantity");
+      return;
+    }
+    if (!userId) {
+      toast.error("User not authenticated");
+      return;
+    }
+
     const res = await fetch("/api/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -25,6 +34,7 @@ export function SwapUI({ market }: { market: string }) {
     });
 
     const data = await res.json();
+    console.log(res);
 
     if (res.ok) {
       // This is used to fulfill the order automatically
@@ -115,17 +125,26 @@ export function SwapUI({ market }: { market: string }) {
               </div>
               <div className="flex justify-end flex-row">
                 <p className="font-medium pr-2 text-xs text-baseTextMedEmphasis">
-                  ≈ {parseFloat(price) * parseFloat(quantity)} USDC
+                  ≈{" "}
+                  {isNaN(parseFloat(price) * parseFloat(quantity))
+                    ? "0"
+                    : (parseFloat(price) * parseFloat(quantity)).toFixed(
+                        2
+                      )}{" "}
+                  USDC
                 </p>
               </div>
             </div>
             <button
               type="button"
+              disabled={!price || !quantity}
               className={`font-semibold focus:ring-blue-200 focus:none focus:outline-none text-center h-12 rounded-xl text-base px-4 py-2 my-4 ${
                 activeTab === "buy"
                   ? "bg-greenPrimaryButtonBackground"
                   : "bg-redPrimaryButtonBackground"
-              } text-greenPrimaryButtonText active:scale-98`}
+              } text-greenPrimaryButtonText active:scale-98 ${
+                !price || !quantity ? "opacity-50 cursor-not-allowed" : ""
+              }`}
               onClick={placeOrder}
             >
               {activeTab === "buy" ? "Buy" : "Sell"}

@@ -38,8 +38,7 @@ const CryptoNews = () => {
   const currentArticles = news.slice(indexOfFirstArticle, indexOfLastArticle);
 
   return (
-    <div className="p-6 bg-gray-900 text-white rounded-lg shadow-lg max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">📢 Crypto News</h2>
+    <div className="p-6 bg-white text-gray-900 rounded-lg shadow-lg mx-auto">
       <div className="space-y-6">
         {currentArticles.map((article, index) => (
           <div key={index} className="flex gap-4 border-b border-gray-700 pb-4">

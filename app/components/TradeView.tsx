@@ -3,6 +3,7 @@ import { ChartManager } from "../utils/ChartManager";
 import { getKlines } from "../utils/httpClient";
 import { KLine } from "../utils/types";
 import { SignalingManager } from "../utils/SignalingManager";
+import { Loader2 } from "lucide-react";
 
 export function TradeView({ market }: { market: string }) {
   const chartRef = useRef<HTMLDivElement>(null);
@@ -78,7 +79,11 @@ export function TradeView({ market }: { market: string }) {
         ref={chartRef}
         style={{ height: "520px", width: "100%", marginTop: 4 }}
       >
-        {!chartLoaded && <p>Loading Chart...</p>}
+        {!chartLoaded && (
+          <div className="flex justify-center items-center h-full">
+            <Loader2 size={48} className="animate-spin" />
+          </div>
+        )}
       </div>
     </>
   );

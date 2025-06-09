@@ -5,6 +5,7 @@ import { Appbar } from "./components/Appbar";
 import { cn } from "./utils/classNameMerge";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Providers } from "./components/Providers";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,11 +25,12 @@ export default function RootLayout({
         <Providers>
           <body
             className={cn(
-              "min-h-screen font-sans antialiased grainy",
+              "h-screen font-sans antialiased grainy",
               inter.className
             )}
           >
             <Appbar />
+            <Toaster position="bottom-right" richColors />
             {children}
           </body>
         </Providers>

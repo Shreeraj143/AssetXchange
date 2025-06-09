@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
+import { Loader2 } from "lucide-react";
 
 type PortfolioItem = {
   id: string;
@@ -34,8 +35,18 @@ export default function PortfolioPage() {
       .finally(() => setLoading(false));
   }, [isSignedIn]);
 
-  if (!isSignedIn) return <div>Please sign in to view your portfolio.</div>;
-  if (loading) return <div>Loading portfolio...</div>;
+  if (!isSignedIn)
+    return (
+      <div className="flex justify-center items-center h-screen text-2xl">
+        Please sign in to view your portfolio.
+      </div>
+    );
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader2 size={48} className="animate-spin" />
+      </div>
+    );
 
   return (
     <div className="max-w-4xl mx-auto p-6">

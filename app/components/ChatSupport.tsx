@@ -60,9 +60,9 @@ const ChatSupport: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto mt-10 border rounded-lg shadow bg-white p-4 overflow-x-hidden">
+    <div className="w-full max-w-md mx-auto border rounded-lg shadow bg-white p-4 overflow-x-hidden">
       <h3 className="text-lg font-semibold mb-2">💬 Crypto Chatbot</h3>
-      <div className="h-80 overflow-y-auto overflow-x-hidden border p-2 rounded-md bg-gray-50">
+      <div className="h-96 overflow-y-auto overflow-x-hidden border p-2 rounded-md bg-gray-50">
         {messages.map((msg, idx) => (
           <div
             key={idx}

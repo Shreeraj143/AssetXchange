@@ -70,7 +70,9 @@ export default function PricePrediction({ symbol }: Props) {
   }, [symbol]);
 
   if (loading)
-    return <div className="p-4 text-gray-600">Analyzing market...</div>;
+    return (
+      <div className="p-4 text-gray-600 text-center">Analyzing market...</div>
+    );
   if (!result)
     return <div className="p-4 text-red-500">Error fetching prediction</div>;
 

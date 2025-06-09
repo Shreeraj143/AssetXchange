@@ -7,7 +7,11 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { userId, symbol, type, price, quantity } = body;
 
-    if (!userId || !symbol || !type || !price || !quantity) {
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    if (!symbol || !type || !price || !quantity) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
