@@ -14,7 +14,7 @@ export async function GET(req: Request) {
         q,
         language: "en",
         sortBy: "publishedAt",
-        pageSize: 20,
+        pageSize: 100,
         apiKey: NEWS_API_KEY,
       },
     });

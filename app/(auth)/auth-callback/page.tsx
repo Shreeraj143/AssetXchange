@@ -20,7 +20,7 @@ export default async function AuthCallbackPage({
 
   if (!user || !user.id) {
     console.log("No user found, redirecting to sign-in");
-    redirect("/sign-in");
+    redirect("/sign-up");
   }
 
   const existingUser = await db.user.findUnique({
