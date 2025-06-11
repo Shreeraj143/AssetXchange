@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Ticker } from "../utils/types";
 import { getTickers } from "../utils/httpClient";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export const Markets = () => {
   const [tickers, setTickers] = useState<Ticker[]>();
@@ -19,9 +20,11 @@ export const Markets = () => {
           <h1 className="text-3xl font-bold mb-4">📊 All Markets</h1>
           <table className="w-full table-auto">
             <MarketHeader />
-            {tickers?.map((m) => (
-              <MarketRow market={m} key={m.symbol} />
-            ))}
+            <tbody>
+              {tickers?.map((m) => (
+                <MarketRow market={m} key={m.symbol} />
+              ))}
+            </tbody>
           </table>
         </div>
       </div>
@@ -58,7 +61,7 @@ function MarketRow({ market }: { market: Ticker }) {
               style={{ width: "40px", height: "40px" }}
             >
               <div className="relative">
-                <img
+                <Image
                   alt={market.symbol}
                   src={
                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVvBqZC_Q1TSYObZaMvK0DRFeHZDUtVMh08Q&s"
@@ -119,7 +122,7 @@ function MarketHeader() {
         </th>
         <th className="px-2 py-3 text-left text-sm font-normal text-baseTextMedEmphasis">
           <div className="flex items-center gap-1 cursor-pointer select-none">
-            Market Cap<span className="w-[16px]"></span>
+            24h High<span className="w-[16px]"></span>
           </div>
         </th>
         <th className="px-2 py-3 text-left text-sm font-normal text-baseTextMedEmphasis">

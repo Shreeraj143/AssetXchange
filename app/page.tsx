@@ -27,9 +27,9 @@ export default function Home() {
             size: "lg",
             className: "mt-5",
           })}
-          href={"/dashboard"}
+          href={"/markets"}
         >
-          Launch Dashboard <ArrowRight className="ml-2 h-5 w-5" />
+          Go to Markets <ArrowRight className="ml-2 h-5 w-5" />
         </Link>
       </MaxWidthWrapper>
 

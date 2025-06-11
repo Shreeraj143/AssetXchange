@@ -67,16 +67,7 @@ export function SwapUI({ market }: { market: string }) {
           </div>
           <div className="flex flex-col px-3">
             <div className="flex flex-col flex-1 gap-3 text-baseTextHighEmphasis">
-              <div className="flex flex-col gap-3">
-                <div className="flex items-center justify-between flex-row">
-                  <p className="text-xs font-normal text-baseTextMedEmphasis">
-                    Available Balance
-                  </p>
-                  <p className="font-medium text-xs text-baseTextHighEmphasis">
-                    36.94 USDC
-                  </p>
-                </div>
-              </div>
+              <div className="flex flex-col gap-3"></div>
               <div className="flex flex-col gap-2">
                 <p className="text-xs font-normal text-baseTextMedEmphasis">
                   Price
@@ -102,7 +93,7 @@ export function SwapUI({ market }: { market: string }) {
               </div>
             </div>
             <div className="flex flex-col gap-2">
-              <p className="text-xs font-normal text-baseTextMedEmphasis">
+              <p className="text-xs font-normal text-baseTextMedEmphasis mt-2.5">
                 Quantity
               </p>
               <div className="flex flex-col relative">
